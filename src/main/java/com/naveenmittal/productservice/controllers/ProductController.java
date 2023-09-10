@@ -1,18 +1,27 @@
 package com.naveenmittal.productservice.controllers;
 
+import com.naveenmittal.productservice.dtos.GenericProductDto;
+import com.naveenmittal.productservice.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {
+
+    ProductService productService;
+
+    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
+        this.productService = productService;
+    }
     @GetMapping
     public String getAllProducts() {
         return "All products";
     }
 
     @GetMapping("{id}")
-    public String getProductById(@PathVariable("id") Long id) {
-        return "Product by id "+id;
+    public GenericProductDto getProductById(@PathVariable("id") Long id) {
+        return productService.getProductById(id);
     }
 
     @DeleteMapping("{id}")
