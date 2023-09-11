@@ -4,4 +4,6 @@ import com.naveenmittal.productservice.dtos.GenericProductDto;
 
 public interface ProductService {
     GenericProductDto getProductById(Long id);
+
+    GenericProductDto createProduct(GenericProductDto productDto);
 }

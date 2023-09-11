@@ -9,4 +9,9 @@ public class SelfProductService implements ProductService{
     public GenericProductDto getProductById(Long id) {
         return null;
     }
+
+    @Override
+    public GenericProductDto createProduct(GenericProductDto productDto) {
+        return null;
+    }
 }
