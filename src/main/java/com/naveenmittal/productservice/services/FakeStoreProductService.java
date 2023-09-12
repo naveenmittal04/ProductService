@@ -2,6 +2,7 @@ package com.naveenmittal.productservice.services;
 
 import com.naveenmittal.productservice.dtos.FakeStoreProductDto;
 import com.naveenmittal.productservice.dtos.GenericProductDto;
+import com.naveenmittal.productservice.exceptions.NotFoundException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +28,16 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public GenericProductDto getProductById(Long id) {
+    public GenericProductDto getProductById(Long id) throws NotFoundException {
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.getForEntity(fakeStoreApiUrl + "/" + id, FakeStoreProductDto.class);
 
         FakeStoreProductDto fakeStoreProductDto = responseEntity.getBody();
+
+        if(fakeStoreProductDto == null) {
+            throw new NotFoundException("Product not found with id "+id);
+        }
+
         GenericProductDto genericProductDto = new GenericProductDto();
         genericProductDto.setTitle(fakeStoreProductDto.getTitle());
         genericProductDto.setImage(fakeStoreProductDto.getImage());
