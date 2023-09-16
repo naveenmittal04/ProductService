@@ -1,6 +1,7 @@
 package com.naveenmittal.productservice.controllers;
 
 import com.naveenmittal.productservice.dtos.GenericProductDto;
+import com.naveenmittal.productservice.exceptions.NotFoundException;
 import com.naveenmittal.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +18,17 @@ public class ProductController {
         this.productService = productService;
     }
     @GetMapping
-    public List<GenericProductDto> getAllProducts() {
+    public List<GenericProductDto> getAllProducts() throws NotFoundException {
         return productService.getAllProducts();
     }
 
     @GetMapping("{id}")
-    public GenericProductDto getProductById(@PathVariable("id") Long id) {
+    public GenericProductDto getProductById(@PathVariable("id") Long id) throws NotFoundException {
         return productService.getProductById(id);
     }
 
     @DeleteMapping("{id}")
-    public GenericProductDto deleteProductById(@PathVariable("id") Long id) {
+    public GenericProductDto deleteProductById(@PathVariable("id") Long id) throws NotFoundException {
 
         return productService.deleteProductById(id);
     }

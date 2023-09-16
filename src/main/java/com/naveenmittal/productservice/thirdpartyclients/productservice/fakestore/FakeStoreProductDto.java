@@ -1,4 +1,4 @@
-package com.naveenmittal.productservice.dtos;
+package com.naveenmittal.productservice.thirdpartyclients.productservice.fakestore;
 
 import lombok.Getter;
 import lombok.Setter;
